@@ -56,38 +56,40 @@ class Controller {
       private function setUpload(){
         $datei = $_FILES['userfile']['name'];
         $uploadfile = SELF::UPATH.$datei;
-                            // mime types
-        $zugelassen = array('image/jpeg','image/png','image/gif','application/pdf');
-        if(!inarray($_FILES['userfile']['type'],$zugelassen)){
+                            // mime typen erkennen
+        $zugelassen = array('image/jpeg','image/png','image/gif','application/pdf','video/mpeg');
+        if(!in_array($_FILES['userfile']['type'],$zugelassen)){
           $this->data = "Ihre Datei ist nicht zugelassen";
         }
 
-        if(move_uploaded_file($_FILES['userfile']
-                              ['tmp_name'],$uploadfile)){
-          $this->data = "Ihre Datei wurde hochgeladen!";
-        } else {
-          $this->data = "Upload ist fehlgeschlagen";
-          switch ($_FILES['userfile']['error']) {
-            case 1: $this->data = "Server läßt diese Größe nicht zu";
-              break;
-            case 2: $this->data = "Datei zu groß";
-              break;
-            case 3: $this->data = "Datei unvollständig beim Server angekommen";
-              break;
-            case 4: $this->data = "Es wurde keine Datei hochgeladen";
-              break;
-            case 6: $this->data = "Kein temporäres Verzeichnis";
-              break;
-            case 7: $this->data = "Schreibschutz im Zielverzeichnis";
-              break;
-            case 7: $this->data = "Eine PHP Erweiterung verhindert das speichern";
-              break;
-            default: ;
+        if($this->data ==""){// Upload starten
+          if(move_uploaded_file($_FILES['userfile']
+                                ['tmp_name'],$uploadfile)){
+            $this->data = "Ihre Datei wurde hochgeladen!";
+          } else {
+            $this->data = "Upload ist fehlgeschlagen";
+            switch ($_FILES['userfile']['error']) {
+              case 1: $this->data = "Server läßt diese Größe nicht zu";
+                break;
+              case 2: $this->data = "Datei zu groß";
+                break;
+              case 3: $this->data = "Datei unvollständig beim Server angekommen";
+                break;
+              case 4: $this->data = "Es wurde keine Datei hochgeladen";
+                break;
+              case 6: $this->data = "Kein temporäres Verzeichnis";
+                break;
+              case 7: $this->data = "Schreibschutz im Zielverzeichnis";
+                break;
+              case 7: $this->data = "Eine PHP Erweiterung verhindert das speichern";
+                break;
+              default: ;
+            }
           }
-        }
-        $this->tpl = "user_upload";
 
-      }
+        }//upload zugelassen
+        $this->tpl = "user_upload";
+      } // Methode Setupload
 
       // LOGOUT
       private function setLogout(){
