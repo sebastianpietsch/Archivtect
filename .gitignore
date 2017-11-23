@@ -1,1 +1,3 @@
-./archivtect/upload/
+archivtect/upload/*
+
+!archivtect/upload/.gitkeep

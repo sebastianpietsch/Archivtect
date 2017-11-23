@@ -56,13 +56,17 @@ class Controller {
       private function setUpload(){
         $datei = $_FILES['userfile']['name'];
         $uploadfile = SELF::UPATH.$datei;
-                            // mime typen erkennen
+        ################# Größe einschränken #######################
+
+
+
+        ##################### mime typen erkennen###################
         $zugelassen = array('image/jpeg','image/png','image/gif','application/pdf','video/mpeg');
         if(!in_array($_FILES['userfile']['type'],$zugelassen)){
           $this->data = "Ihre Datei ist nicht zugelassen";
         }
-
-        if($this->data ==""){// Upload starten
+        ################# Upload starten ##########################
+        if($this->data ==""){
           if(move_uploaded_file($_FILES['userfile']
                                 ['tmp_name'],$uploadfile)){
             $this->data = "Ihre Datei wurde hochgeladen!";
