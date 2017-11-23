@@ -10,6 +10,9 @@
  ?>
 </h2>
 <h3> Dateien hochladen </h3>
+<?php
+echo $data;
+ ?>
 <form method="post" action="index.php" enctype="multipart/form-data">
   <input type="hidden" name="upload">
   <input type="file" name="userfile" placeholder="Datei auswählen" required><br>

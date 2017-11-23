@@ -7,6 +7,7 @@ class Controller {
   private $request;
   private $tpl ="start"; //starttemplate
   private const UPATH ="upload/";  //Uploadpfad
+  private $data = ""; //
   // Initialisierung - Erster Aufruf in dem Programm
   // Der Constructor wird aufgerufen vom Controller
   function __construct(){
@@ -28,10 +29,10 @@ class Controller {
       }
 
 
-      $data = "";
+
       $view = new View(); // Rückgabe an Screen
       $view->setTemplate($this->tpl); //Login
-      $view->setLayout($data);
+      $view->setLayout($this->data);
       $view->toDisplay();
   }
 
@@ -57,28 +58,29 @@ class Controller {
         $uploadfile = SELF::UPATH.$datei;
         if(move_uploaded_file($_FILES['userfile']
                               ['tmp_name'],$uploadfile)){
-          echo "Ihre Datei wurde hochgeladen!";
+          $this->data = "Ihre Datei wurde hochgeladen!";
         } else {
-          echo "Upload ist fehlgeschlagen";
+          $this->data = "Upload ist fehlgeschlagen";
           switch ($_FILES['userfile']['error']) {
-            case 1: echo "Server läßt diese Größe nicht zu";
+            case 1: $this->data = "Server läßt diese Größe nicht zu";
               break;
-            case 2: echo "Datei zu groß";
+            case 2: $this->data = "Datei zu groß";
               break;
-            case 3: echo "Datei unvollständig beim Server angekommen";
+            case 3: $this->data = "Datei unvollständig beim Server angekommen";
               break;
-            case 4: echo "Es wurde keine Datei hochgeladen";
+            case 4: $this->data = "Es wurde keine Datei hochgeladen";
               break;
-            case 6: echo "Kein temporäres Verzeichnis";
+            case 6: $this->data = "Kein temporäres Verzeichnis";
               break;
-            case 7: echo "Schreibschutz im Zielverzeichnis";
+            case 7: $this->data = "Schreibschutz im Zielverzeichnis";
               break;
-            case 7: echo "Eine PHP Erweiterung verhindert das speichern";
+            case 7: $this->data = "Eine PHP Erweiterung verhindert das speichern";
               break;
             default: ;
           }
         }
         $this->tpl = "user_upload";
+
       }
 
       // LOGOUT
