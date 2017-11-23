@@ -57,7 +57,9 @@ class Controller {
         $datei = $_FILES['userfile']['name'];
         $uploadfile = SELF::UPATH.$datei;
         ################# Größe einschränken #######################
-
+        if($_FILES['userfile']['size'] >= 1048576) {
+          $this->data = "Ihre Datei ist größer als 1MB";
+        } // bzw. PHP ini upload_max_filesize Standard 2MB, post_max 8MB
 
 
         ##################### mime typen erkennen###################
@@ -66,7 +68,7 @@ class Controller {
           $this->data = "Ihre Datei ist nicht zugelassen";
         }
         ################# Upload starten ##########################
-        if($this->data ==""){
+        if($this->data ==""){ //Upload zugelassen
           if(move_uploaded_file($_FILES['userfile']
                                 ['tmp_name'],$uploadfile)){
             $this->data = "Ihre Datei wurde hochgeladen!";
