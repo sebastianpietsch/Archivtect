@@ -5,7 +5,8 @@
 class Controller {
 
   private $request;
-  private $tpl ="start";
+  private $tpl ="start"; //starttemplate
+  private const UPATH ="upload/";  //Uploadpfad
   // Initialisierung - Erster Aufruf in dem Programm
   // Der Constructor wird aufgerufen vom Controller
   function __construct(){
@@ -20,6 +21,8 @@ class Controller {
           case 'register': $this->tpl = "register";
           break;
           case 'savereg': $this->setRegister();
+          break;
+          case 'upload': $this->setUpload();
           break;
           default: ;
       }
@@ -49,6 +52,35 @@ class Controller {
          return $data;
       }
 
+      private function setUpload(){
+        $datei = $_FILES['userfile']['name'];
+        $uploadfile = SELF::UPATH.$datei;
+        if(move_uploaded_file($_FILES['userfile']
+                              ['tmp_name'],$uploadfile)){
+          echo "Ihre Datei wurde hochgeladen!";
+        } else {
+          echo "Upload ist fehlgeschlagen";
+          switch ($_FILES['userfile']['error']) {
+            case 1: echo "Server läßt diese Größe nicht zu";
+              break;
+            case 2: echo "Datei zu groß";
+              break;
+            case 3: echo "Datei unvollständig beim Server angekommen";
+              break;
+            case 4: echo "Es wurde keine Datei hochgeladen";
+              break;
+            case 6: echo "Kein temporäres Verzeichnis";
+              break;
+            case 7: echo "Schreibschutz im Zielverzeichnis";
+              break;
+            case 7: echo "Eine PHP Erweiterung verhindert das speichern";
+              break;
+            default: ;
+          }
+        }
+        $this->tpl = "user_upload";
+      }
+
       // LOGOUT
       private function setLogout(){
           session_destroy(); // Session auflösen
@@ -68,7 +100,7 @@ class Controller {
         }
       }
 
-      
+
 
 
 
