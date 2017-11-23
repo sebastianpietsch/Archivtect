@@ -48,18 +48,17 @@ class Model{
 
       return Service::setExec($sql); //user ID
 
-//,'{$mail}','{$pass}','{$sex}'
-
     }
 
-    function getData(){
-      // Modellierung der Anfrage
-      // Rückgabe der Datenbankergebnisse
-      // Server entlasten, nur ein Connect
-      return SERVICE::getFetchAll();
+
+    public static function getUserNameFromId($id){
+      $sql = "SELECT name FROM tb_user WHERE
+              id = {$id}";
+      return Service::getOne($sql);
     }
+
+
+
 
 }
-
-
- ?>
+?>

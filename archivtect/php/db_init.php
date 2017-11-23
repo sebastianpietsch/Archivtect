@@ -29,7 +29,7 @@ $sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_password (
 $sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_user (
             id INT(11) AUTO_INCREMENT UNIQUE PRIMARY KEY,
             name VARCHAR(32),
-            email VARCHAR(256),
+            email VARCHAR(256) UNIQUE,
             sex CHAR(1),
             id_pass INT,
             FOREIGN KEY (id_pass) REFERENCES tb_password(id)

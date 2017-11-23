@@ -24,7 +24,7 @@ class Controller {
           default: ;
       }
 
-      //$data = Model::getData();
+
       $data = "";
       $view = new View(); // Rückgabe an Screen
       $view->setTemplate($this->tpl); //Login
@@ -34,19 +34,19 @@ class Controller {
 
   // LOGIN
       private function setLogin(){
-      //$salt = 12357231;
       $salt = Model::getSalt($this->request['mail']);
       $hash = hash('sha512', $this->request['pass'].$salt);
       $data = Model::getPassOk($this->request['mail'], $hash);
-      if($data) {
-        $_SESSION['user']="true";
-      };
 
-      //echo hash('sha512', "12312357231");
+        if($data) { //id muss vorhanden sein also User vorhanden
+          $_SESSION['user'] = $data;
+          $this->tpl = "user_upload";
+        };
+      }
 
-      /*if($this->request['mail'] == "test@test.de" && $this->request['pass'] == "123"){
-        $_SESSION['user']="true"; //Session anlegen
-        echo $_SESSION['user']; */
+      public function getUserName() {
+         $data = Model::getUserNameFromId($_SESSION['user']);
+         return $data;
       }
 
       // LOGOUT
@@ -64,9 +64,11 @@ class Controller {
         if($data != 0) {
           $this->tpl = "register_ok"; // Fehlerseite
         } else {
-          $this->tpl = "register_no"; // Fehlerseite 
+          $this->tpl = "register_no"; // Fehlerseite
         }
       }
+
+      
 
 
 
