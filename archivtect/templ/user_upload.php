@@ -15,6 +15,6 @@ echo $data;
  ?>
 <form method="post" action="index.php" enctype="multipart/form-data">
   <input type="hidden" name="upload">
-  <input type="file" name="userfile" placeholder="Datei auswählen" required><br>
+  <input type="file" name="userfile" required><br>
   <input type ="submit" value="upload">
 </form>
