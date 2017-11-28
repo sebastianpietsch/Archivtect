@@ -58,6 +58,20 @@ class Model{
     }
 
 
+    ########### schreiben in Archivdatei ##############
+    public static function setArchiv($a, $b, $c, $d){
+      $sql = "INSERT INTO tb_archiv (id_user,name,path,online)
+              VALUES ({$a},'{$b}','{$c}',{$d})";
+
+              return Service::setExec($sql);
+    }
+
+    public static function setKeys($key) {
+      $sql = "INSERT INTO tb_key(search)
+              VALUES ('{$key}')";
+
+            return Service::setExec($sql);
+    }
 
 
 }

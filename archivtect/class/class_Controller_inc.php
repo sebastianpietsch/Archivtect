@@ -72,6 +72,19 @@ class Controller {
           if(move_uploaded_file($_FILES['userfile']
                                 ['tmp_name'],$uploadfile)){
             $this->data = "Ihre Datei wurde hochgeladen!";
+
+            if(isset($this->request['online'])) $on = 1;
+            else $on = 0;
+
+            $id_archiv = Model::setArchiv($_SESSION['user'],$datei,SELF::UPATH, $on);
+
+            //parsen der Keywörter
+            $arr = explode(",",$this->request['keys']);
+            foreach($arr as $key) {
+              $id_key = Model::setKeys($key);
+              echo $id_key;
+            }
+
           } else {
             $this->data = "Upload ist fehlgeschlagen";
             switch ($_FILES['userfile']['error']) {
