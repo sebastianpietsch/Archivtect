@@ -42,6 +42,28 @@ $sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_salt (
             FOREIGN KEY (id_pass) REFERENCES tb_password(id)
             )';
 
+$sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_archiv (
+             id INT(11) AUTO_INCREMENT PRIMARY KEY,
+             id_user INT(11),
+             name VARCHAR(255),
+             datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+             path VARCHAR(255),
+             online BOOLEAN NOT NULL,
+             FOREIGN KEY(id_user) REFERENCES tb_user(id)
+             )';
+
+$sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_key (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            search VARCHAR(255)
+            )';
+
+$sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_key_archiv (
+             id_key INT(11),
+             id_archiv INT(11),
+             FOREIGN KEY(id_archiv) REFERENCES tb_archiv(id),
+             FOREIGN KEY (id_key) REFERENCES tb_key(id)
+             )';
+
 // Mehrere Tabellen gleichzeitig anlegen
 foreach($sqlArr as $sql) {
   $myPDO->exec($sql);
