@@ -66,11 +66,21 @@ class Model{
               return Service::setExec($sql);
     }
 
+    ########### Keywörter schreiben ###########
     public static function setKeys($key) {
       $sql = "INSERT INTO tb_key(search)
-              VALUES ('{$key}')";
+              VALUES (UPPER('{$key}'))";
 
             return Service::setExec($sql);
+    }
+
+    ###### Verbindungstabelle Suchwort -> Medium ##########
+    public static function setKeyArchiv($k1, $k2) {
+      $sql = "INSERT INTO tb_key_archiv(id_key, id_archiv)
+              VALUES ({$k1}, {$k2})";
+
+              return Service::setExec($sql);
+
     }
 
 

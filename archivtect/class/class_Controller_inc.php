@@ -81,8 +81,11 @@ class Controller {
             //parsen der Keywörter
             $arr = explode(",",$this->request['keys']);
             foreach($arr as $key) {
-              $id_key = Model::setKeys($key);
-              echo $id_key;
+
+            if(trim($key) == '') continue; //ist getrimmter key leer, dann einmal nicht schreiben
+
+            $id_key = Model::setKeys(trim($key)); //einzelne Keys werden übertragen, trim macht vor oder nach key leerzeichen weg
+            Model::setKeyArchiv($id_key, $id_archiv);
             }
 
           } else {

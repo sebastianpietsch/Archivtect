@@ -54,7 +54,7 @@ $sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_archiv (
 
 $sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_key (
             id INT(11) AUTO_INCREMENT PRIMARY KEY,
-            search VARCHAR(255)
+            search VARCHAR(255) UNIQUE
             )';
 
 $sqlArr[] = 'CREATE TABLE IF NOT EXISTS tb_key_archiv (
